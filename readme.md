@@ -30,8 +30,9 @@
 - I recommend running the application in Visual Studio, you can right click the "StarWeatherAPI.sln" in the solution explorer and and open it. At the top of Visual Studio you will see the "play/start" green triangle and that is how I recommend running it. You can also select the drop down and use the IIS Express server if that is your preference.
 
 * You will need to configure your own DB to run with this application. There are plenty of youtube videos on how to do that. I found these ones helpful: 
-    * https://www.youtube.com/watch?v=wZfCIw5y5j8&t=38s
-    * https://www.youtube.com/watch?v=ON-Z1iD6Y-c
+    * https://www.youtube.com/watch?v=6joGkZMVX4o (setting up db with azure)
+    * https://www.youtube.com/watch?v=wZfCIw5y5j8&t=38s (covers connection db to project)
+    * https://www.youtube.com/watch?v=ON-Z1iD6Y-c (covers connecting db to project)
 
 - Routes can be tested directely in your browser or with Postman, Insomnia, etc..
 
