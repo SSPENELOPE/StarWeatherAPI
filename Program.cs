@@ -4,8 +4,10 @@ using System.Text;
 using Newtonsoft.Json.Serialization;
 using react_weatherapp.Helpers;
 using Microsoft.EntityFrameworkCore;
+using react_weatherapp.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using react_weatherapp.Controllers;
 
 namespace react_weatherapp
 {
@@ -22,18 +24,28 @@ namespace react_weatherapp
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").AddUserSecrets<Program>().Build();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
+            var apiKey = configuration.GetValue<string>("OpenWeatherApiKey:apiKey");
+
+            builder.Services.Configure<OpenWeatherApiKey>(configuration.GetSection("OpenWeatherApiKey"));
+
             // Dependacy injection for connection 
             builder.Services.AddSingleton<Connection>();
-
+            
             // This is incorporated into connection.cs file, will dig more later to minimize usage
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddControllers();
+            builder.Services.AddSingleton<IWeatherApiService, Controllers.WeatherApiService>();
+     
+            builder.Services.AddHttpClient("PublicWeatherApi", client => client.BaseAddress = new Uri("https://api.openweathermap.org"));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+
+
 
             //JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

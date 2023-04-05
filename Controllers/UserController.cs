@@ -50,56 +50,6 @@ namespace react_weatherapp.Controllers
     }
 
 
-    /**************************************************             Update User Information             *********************************/
-    // Update User Route
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UpdateUser : Controller
-    {
-        Connection Conn;
-        public UpdateUser(Connection _CONN)
-        {
-            Conn = _CONN;
-        }
-
-        [HttpPut]
-        public JsonResult Put(User user)
-        {
-            DataTable table = new DataTable();
-            try
-            {
-                using (SqlConnection myConnection = new SqlConnection(Conn.connectionstring))
-                {
-
-                    string query = @"
-                        update [dbo].[user]
-                        set Email = @Email,
-                        Password = @Password
-                        where Id = @Id
-                    ";
-                    using (SqlCommand myCommand = new SqlCommand(query, myConnection))
-                    {
-                        myCommand.Parameters.AddWithValue("@Id", user.UserId);
-                        myCommand.Parameters.AddWithValue("@Email", user.Email);
-                        myCommand.Parameters.AddWithValue("@Password", user.Password);
-                        myConnection.Open();
-                        using (SqlDataReader reader = myCommand.ExecuteReader())
-                        {
-                            table.Load(reader);
-                            reader.Close();
-                            myConnection.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-            return new JsonResult("User Updated Sucessfuly");
-        }
-    }
-
     /**************************************************             Delete User             *********************************/
     // Delete User Route
     [Route("api/[controller]")]
@@ -160,6 +110,7 @@ namespace react_weatherapp.Controllers
         }
 
         DataTable table = new DataTable();
+
         /* GET FAVORITE */
         [HttpGet("{userId}")]
         public IActionResult GetFavorites(int userId)
@@ -294,6 +245,7 @@ namespace react_weatherapp.Controllers
         {
             Conn = _CONN;
         }
+
         /* USERNAME */
         [HttpPut]
         public IActionResult UpdateUsername(User user)
@@ -323,6 +275,7 @@ namespace react_weatherapp.Controllers
             }
             return new JsonResult("Successfuly upadted Username");
         }
+
         /* EMAIL */
         [HttpPut]
         public IActionResult UpdateEmail(User user)
@@ -351,6 +304,7 @@ namespace react_weatherapp.Controllers
             }
             return new JsonResult("Successfuly upadted Email");
         }
+
         /* PASSWORD */
         [HttpPut]
         public IActionResult UpdatePassword(User user)

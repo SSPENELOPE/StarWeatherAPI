@@ -40,3 +40,11 @@
 - You can email me at SSPENELOPE23@gmail.com with any questions. If you find anything code breaking or have suggestions feel free to send that over as well
 
 
+### ChangeLog 
+
+### 4/5/2023 :
+* Created a services folder embedded in the contorller to consume the 3rd party api used in this application. Will be implementing this logic into the single solution web application as well.  
+
+* Created a new "WeatherController" to call on the 3rd party API service, Created a model to support grabbing the Lat and Lon which is the only data we needed from the first call
+
+* Created apiKey Model to retrieve and hold our apiKey, this was added to our program.cs as a Configuration.
