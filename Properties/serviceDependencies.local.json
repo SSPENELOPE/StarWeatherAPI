@@ -9,6 +9,13 @@
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:DefaultConnection",
       "dynamicId": null
+    },
+    "storage1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/starweatherapplication",
+      "type": "storage.azure",
+      "connectionId": "StorageConnectionString:connString",
+      "dynamicId": null
     }
   }
 }

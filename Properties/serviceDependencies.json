@@ -17,6 +17,11 @@
       "type": "mssql",
       "connectionId": "ConnString:DBKey",
       "dynamicId": null
+    },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "StorageConnectionString:connString",
+      "dynamicId": null
     }
   }
 }

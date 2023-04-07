@@ -23,10 +23,12 @@ namespace react_weatherapp
             // Connection String From appsettings
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").AddUserSecrets<Program>().Build();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-
+            var storage_connection = configuration.GetValue<string>("StorageConnectionString:connString");
             var apiKey = configuration.GetValue<string>("OpenWeatherApiKey:apiKey");
 
+
             builder.Services.Configure<OpenWeatherApiKey>(configuration.GetSection("OpenWeatherApiKey"));
+            builder.Services.Configure<StorageKey>(configuration.GetSection("StorageConnectionString"));
 
             // Dependacy injection for connection 
             builder.Services.AddSingleton<Connection>();
@@ -37,6 +39,7 @@ namespace react_weatherapp
 
             builder.Services.AddControllers();
             builder.Services.AddSingleton<IWeatherApiService, Controllers.WeatherApiService>();
+            builder.Services.AddSingleton<IDownloadApiService, Controllers.DownloadApiService>();
      
             builder.Services.AddHttpClient("PublicWeatherApi", client => client.BaseAddress = new Uri("https://api.openweathermap.org"));
 
